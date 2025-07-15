@@ -28,7 +28,7 @@ let activePolling = {}; // Track active polling intervals for each call
 
 const phoneToJA = (number) => {
   let numberJA = "";
-  const chars = number.split('');
+  const chars = String(number).split('');
   chars.forEach((char) => {
     if(char==="+") numberJA += "プラス ";
     else if(char==="0") numberJA += "ゼロ ";

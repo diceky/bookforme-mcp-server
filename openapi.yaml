@@ -8,6 +8,7 @@ servers:
 paths:
   /call:
     post:
+      operationId: startCall
       summary: Start a restaurant call
       requestBody:
         required: true
@@ -44,19 +45,19 @@ paths:
                 language:
                   type: string
                   description: Language to make the call in
+                  enum: [en, ja]
                 restaurantPhone:
                   type: string
-                  description: Phone number of the restaurant to call
+                  description: Phone number of the restaurant to call in international format (e.g. +1234567890)
                 userPhone:
                   type: string
-                  description: Phone number of the user (optional)
+                  description: Optional. Phone number of the user (optional)
                 restaurantName:
                   type: string
-                  description: Name of the restaurant to call
-                  enum: [en, ja]
+                  description: Optional. Name of the restaurant to call
                 custom_request:
                   type: string
-                  description: User's custom requests for the reservation (e.g. "window seat", "high chair", "vegetarian")
+                  description: Optional. User's custom requests for the reservation (e.g. "window seat", "high chair", "vegetarian")
               required: [firstName, lastName, partyNum, hour, minute, month, date, language, restaurantPhone]
       responses:
         '200':
@@ -69,41 +70,42 @@ paths:
                   call_id:
                     type: string
 
-/call-status/{call_id}:
-  get:
-    summary: Get current status of the restaurant call
-    parameters:
-      - name: call_id
-        in: path
-        required: true
-        schema:
-          type: string
-    responses:
-      '200':
-        description: Current call status and conversation log
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  description: Current call status (`inProgress`, `done`, `failed`)
-                conversation:
-                  type: array
-                  description: A running log of what has been said on the call so far.
-                  items:
-                    type: object
-                    properties:
-                      sender:
-                        type: string
-                        enum: [agent, receiver]
-                      content:
-                        type: string
-
+  /call-status/{call_id}:
+    get:
+      operationId: getCallStatus
+      summary: Get current status of the restaurant call
+      parameters:
+        - name: call_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current call status and conversation log
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Current call status (`inProgress`, `done`, `failed`)
+                  conversation:
+                    type: array
+                    description: A running log of what has been said on the call so far.
+                    items:
+                      type: object
+                      properties:
+                        sender:
+                          type: string
+                          enum: [agent, receiver]
+                        content:
+                          type: string
 
   /call-summary/{call_id}:
     get:
+      operationId: getCallSummary
       summary: Get the call summary once complete
       parameters:
         - name: call_id
