@@ -90,7 +90,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: Current call status (`inProgress`, `done`, `failed`)
+                    description: Current call status (`inProgress`, `done`, `waiting` or `failed`)
                   conversation:
                     type: array
                     description: A running log of what has been said on the call so far.
@@ -121,6 +121,9 @@ paths:
               schema:
                 type: object
                 properties:
+                  comleted:
+                    type: boolean
+                    description: Whether the call has been completed
                   isReservationSuccessful:
                     type: boolean
                     description: Whether the reservation was successful

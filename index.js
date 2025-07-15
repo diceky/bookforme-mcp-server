@@ -302,9 +302,14 @@ app.get('/call-summary/:callId', async (req, res) => {
           })
           .then((response) => {
             console.log(response);
-            toClient.isReservationSuccessful = response.analysis["is_reservation_successful"];
-            toClient.summary = response.summary;
-            toClient.transcript = response.transcripts;
+            if(response.completed && response.analysis !== null) {
+                toClient.completed = true;
+                toClient.isReservationSuccessful = response.analysis["is_reservation_successful"];
+                toClient.summary = response.summary;
+                toClient.transcript = response.transcripts;
+            } else {
+                toClient.completed = false;
+            }
           });
     } catch (error) {
         console.error(`Error calling event stream for call ID ${callId}:`, error);
