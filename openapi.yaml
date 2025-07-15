@@ -121,7 +121,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  comleted:
+                  completed:
                     type: boolean
                     description: Whether the call has been completed
                   isReservationSuccessful:
