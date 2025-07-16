@@ -131,8 +131,7 @@ app.post('/call', async (req, res) => {
         4. If the restaurant staff asks you for the user's name, tell them it is ${req.body.firstName} ${req.body.lastName}.
         5. If the restaurant staff asks you for the user's phone number, ${req.body.userPhone===null ? "tell them the customer has not privided their phone number" : `it is ${req.body.userPhone}`}.
         6. If the restaurant staff asks you for information other than your name or phone number, politely tell them that you do not have that information because you are calling on the user's behalf.
-        7. If that time is not available, the user would like to ${planBOptions[req.body.planB - 1]}. If that still does not work, give up the reservation.
-        8. Thank the staff and end the call.‍‍
+        7. Thank the staff and end the call.‍‍
 
         Example dialogue:
         Restaurant: Hello, this is [restaurant name].
@@ -163,8 +162,7 @@ app.post('/call', async (req, res) => {
         4. 電話番号を聞かれたら、${req.body.userPhone===null ? "日本で繋がる電話番号をもっていないと答えてください" : `${phoneToJA(req.body.userPhone)}と答えてください`}。 
         5. 日付を聞かれたら、${req.body.month}月${req.body.date}日の${req.body.hour}時${req.body.minute===0 ? "" : `${req.body.minute}分`}と答えてください。「${req.body.date}日」は、「${dateToJA(req.body.date)}にち」と発音してください。
         6. それ以外の情報を聞かれたら、ユーザーの代理でかけておりその情報は持ち合わせていないことを丁寧に伝えてください。
-        7. もしその枠が予約できないならば、${planBOptionsJA[req.body.planB - 1]}。 それでもダメなら予約を諦めてください。
-        8. スタッフに感謝して電話を切ってください。
+        7. スタッフに感謝して電話を切ってください。
 
         会話の例:
         レストラン: こんにちは、[レストラン名]です。
