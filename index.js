@@ -126,7 +126,7 @@ app.post('/call', async (req, res) => {
 
         Call Flow:
         1. Express that you want to make a reservation for ${req.body.partyNum} people at ${req.body.hour}:${req.body.minute===0 ? "00" : req.body.minute} on ${months[req.body.month-1]} ${req.body.date}.
-        2. ${req.body.customRequest===null ? "If the restaurant staff asks for any special requests, politely inform them that there are none." : "Let the staff know that the user has a special request: " + req.body.customRequest}.
+        2. ${req.body.customRequest ? `Let the staff know that the user has a special request: ${req.body.customRequest}` : "If the restaurant staff asks for any special requests, politely inform them that there are none."}.
         3. If the time is available, confirm the reservation. 
         4. If the time is not available, thanks the staff and end the call. DO NOT try to negotiate a different time.
         5. If the restaurant staff asks you for the user's name, tell them it is ${req.body.firstName} ${req.body.lastName}.
@@ -157,7 +157,7 @@ app.post('/call', async (req, res) => {
 
         電話の流れ:
         1. ${req.body.month}月${req.body.date}日の${req.body.hour}時${req.body.minute===0 ? "" : `${req.body.minute}分`}に、${req.body.partyNum}名で予約をとりたいことを伝えてください。「${req.body.date}日」は、「${dateToJA(req.body.date)}にち」と発音してください。
-        2. ${req.body.customRequest===null ? "もしレストランのスタッフが特別なリクエストを聞いてきたら、特にないと答えてください。" : `ユーザーの希望として、「${req.body.customRequest}」を望んでいることを合わせて伝えてください。` }
+        2. ${req.body.customRequest ? `ユーザーの希望として、「${req.body.customRequest}」を望んでいることを合わせて伝えてください。` : "もしレストランのスタッフが特別なリクエストを聞いてきたら、特にないと答えてください。"}
         3. その枠が予約できるならば、予約を確定してもらってください。
         4. その枠が予約できない場合は、スタッフに感謝して電話を切ってください。別の時間を提案しないでください。
         5. 名前を聞かれたら、${req.body.firstName} ${req.body.lastName}と答えてください。
